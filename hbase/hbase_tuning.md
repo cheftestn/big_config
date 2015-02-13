@@ -60,7 +60,7 @@ Courtesy : Hadoop
 <a name="C"></a>
 
 
-## HBASE JAVA_OPTS configuration. 
+## HBASE `JAVA_OPTS` configuration. 
 
 Cloudera on Hbase Memory : "RAM, RAM, RAM. Don't starve HBase.".
 So the primary goal is to not starve `hbase` of any RAM. If you have RAM then feed `hbase`.
@@ -228,7 +228,7 @@ YARN will allocate Containers with RAM amounts greater than the `yarn.scheduler.
 
 <a name="E"></a>
 
-## Hadoop JAVA_OPTS Configuration.
+## Hadoop `JAVA_OPTS` Configuration.
 
 Setting `namenode` to 16GB. Since `NN` needs RAM just like `Hbase` dont starve it. 
 
