@@ -49,17 +49,6 @@ All Machine are as below configuration. We have 4 Servers in the Cluster. 1 Mast
 
 Copy the below content in `/etc/hosts` file. Make sure there are no Duplicate entries.
 
-	#NginX and NodeJS/Apache-Tomcat
-	16.114.26.91    AHMD-LOADBALC		# (RAM 4GB) 
-	
-	#D3 and Apache-Tomcat(web-services)
-	16.114.26.92	AHMD-D3WEBSRV      	# (RAM 8GB)	
-	
-	#KAFKA Node
-	16.114.26.90	AHMD-KAFKA01   		# (RAM 16GB) Existing Machine (Zookeeper will run here)
-	
-	#STORM Node
-	16.114.26.98	AHMD-STORM01   		# (RAM 8GB) Existing Machine 
 	
 	#HBASE Nodes
 	16.114.26.95    AHMD-HBASE-MASTER	# HMaster, NNode, RManager.
