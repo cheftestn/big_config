@@ -1,24 +1,34 @@
 
+<a name="Setting up Hadoop Cluster"></a>
+
 # Setting up Hadoop Cluster
 
----
-
-Table of Contents
-
-* <a href="#Hardware Configuration">Hardware Configuration.</a>
-* <a href="#Services Running on each Server">Services Running on each Server.</a>
-* <a href="#Prerequisites - Before we start">Prerequisites - Before we start.</a>
-* <a href="#Setting Up Hadoop Cluster (YARN)">Setting Up Hadoop Cluster (YARN).</a>
-    * <a href="#Setting up HDFS">Setting up HDFS.</a>
-    * <a href="#Setting up YARN">Setting up YARN.</a>
-    * <a href="#Copy all the configuration to `slaves`">Copy all the configuration to `slaves`.</a>
-    * <a href="#Starting Services HDFS">Starting Services HDFS.</a>
-    * <a href="#Starting Service YARN">Starting Service YARN..</a>
-* <a href="#Testing Our Hadoop Cluster">Testing Our Hadoop Cluster.</a>
 
 ---
 
-<a name="Hardware Configuration"></a>
+###Table of Contents
+
+1. <a href="#Hardware Configuration.">Hardware Configuration.</a>
+2. <a href="#Services Running on each Server.">Services Running on each Server.</a>
+3. <a href="#Prerequisites - Before we start.">Prerequisites - Before we start.</a>
+	 * <a href="#Update All servers with below `/etc/hosts` file.">Update All servers with below `/etc/hosts` file.</a>
+	 * <a href="#Passwordless Entry from `master` to all `slaves`.">Passwordless Entry from `master` to all `slaves`.</a>
+4. <a href="#Setting Up Hadoop Cluster (YARN).">Setting Up Hadoop Cluster (YARN).</a>
+	 * <a href="#Extracting and creating required directories.">Extracting and creating required directories.</a>
+	 * <a href="#Setting up HDFS.">Setting up HDFS.</a>
+	 * <a href="#Setting up YARN.">Setting up YARN.</a>
+	 * <a href="#Copy all the configuration to `slaves`.">Copy all the configuration to `slaves`.</a>
+	 * <a href="#Starting Services HDFS.">Starting Services HDFS.</a>
+	 * <a href="#Starting Service YARN.">Starting Service YARN.</a>
+5. <a href="#Testing Our Hadoop Cluster.">Testing Our Hadoop Cluster.</a>
+
+---
+
+
+
+
+
+<a name="Hardware Configuration."></a>
 
 ## Hardware Configuration.
 
@@ -28,7 +38,10 @@ All Machine are as below configuration. We have 4 Servers in the Cluster. 1 Mast
 	Server CPU	: [Virtual] Single Core 64bit.
 
 
-<a name="Services Running on each Server"></a>
+
+
+
+<a name="Services Running on each Server."></a>
 
 ## Services Running on each Server.
 
@@ -39,9 +52,15 @@ All Machine are as below configuration. We have 4 Servers in the Cluster. 1 Mast
 
 
 
-<a name="Prerequisites - Before we start"></a>
+
+
+
+<a name="Prerequisites - Before we start."></a>
 
 ## Prerequisites - Before we start.
+
+
+<a name="Update All servers with below `/etc/hosts` file."></a>
 
 ### Update All servers with below `/etc/hosts` file.
 
@@ -54,6 +73,9 @@ Copy the below content in `/etc/hosts` file. Make sure there are no Duplicate en
 	16.114.26.94	AHMD-HBASE-RS02     # NodeManager, RServer, DNode, ZKeeper.
 	16.114.22.192	AHMD-HBASE-RS03     # NodeManager, RServer, DNode, ZKeeper.
 
+
+
+<a name="Passwordless Entry from `master` to all `slaves`."></a>
 
 ### Passwordless Entry from `master` to all `slaves`.
 
@@ -76,11 +98,17 @@ Testing...
 	ahmed@AHMD-HBASE-RS01:~>
 
 
-<a name="Setting Up Hadoop Cluster (YARN)"></a>	
+
 	
+
+<a name="Setting Up Hadoop Cluster (YARN)."></a>
+
 ## Setting Up Hadoop Cluster (YARN).
 
-<a name="Extracting and creating required directories"></a>
+
+
+
+<a name="Extracting and creating required directories."></a>
 
 ### Extracting and creating required directories.
 
@@ -99,7 +127,10 @@ Do the below commands on all the servers.
 	mkdir -p /data/3/yarn/logs
 
 
-<a name="Setting up HDFS"></a>
+
+
+
+<a name="Setting up HDFS."></a>
 
 ### Setting up HDFS.
 
@@ -143,7 +174,10 @@ File to update : `slaves`
 	AHMD-HBASE-RS03
 
 
-<a name="Setting up YARN"></a>
+
+
+
+<a name="Setting up YARN."></a>
 
 ### Setting up YARN.
 
@@ -202,7 +236,10 @@ File to update : `yarn-site.xml`
 	</configuration>
 
 
-<a name="Copy all the configuration to `slaves`"></a>
+
+
+
+<a name="Copy all the configuration to `slaves`."></a>
 
 ### Copy all the configuration to `slaves`.
 
@@ -213,7 +250,10 @@ Note : Here using login as `root` as hadoop is running as `root` in /opt. If a s
 	scp -r /opt/hadoop/etc/hadoop/* root@AHMD-HBASE-RS03:/opt/hadoop/etc/hadoop/
 
 
-<a name="Starting Services HDFS"></a>
+
+
+
+<a name="Starting Services HDFS."></a>
 
 ### Starting Services HDFS.
 
@@ -244,7 +284,10 @@ Here what the configuration looks like.
 	</property>
 
 
-<a name="Starting Service YARN"></a>
+
+
+
+<a name="Starting Service YARN."></a>
 
 ### Starting Service YARN.
 
@@ -257,7 +300,10 @@ Step 2. Next we start `nodemanager`, using `yarn-daemons.sh` (there is a `s` in 
 	/opt/hadoop/sbin/yarn-daemons.sh start nodemanager
 
 
-<a name="Testing Our Hadoop Cluster"></a>
+
+
+
+<a name="Testing Our Hadoop Cluster."></a>
 
 ## Testing Our Hadoop Cluster.
 
