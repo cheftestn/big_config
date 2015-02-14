@@ -6,7 +6,7 @@
 
 ---
 
-Table of Contents
+###Table of Contents
 
 1. <a href="#Server Hardware Details.">Server Hardware Details.</a>
 2. <a href="#Hadoop YARN Architecture.">Hadoop YARN Architecture.</a>
@@ -14,7 +14,7 @@ Table of Contents
 	 * <a href="#Diagram">Diagram</a>
 3. <a href="#HBASE `JAVA_OPTS` configuration.">HBASE `JAVA_OPTS` configuration.</a>
 	 * <a href="#Details of Options used in `hbase`.">Details of Options used in `hbase`.</a>
-	 * <a href="#The following are the recommended Java GC and HBase heap settings:">The following are the recommended Java GC and HBase heap settings:</a>
+	 * <a href="#The following are the recommended Java GC and HBase heap settings.">The following are the recommended Java GC and HBase heap settings.</a>
 	 * <a href="#How it works.">How it works.</a>
 	 * <a href="#Complete Configuration below">Complete Configuration below</a>
 4. <a href="#Setting `yarn-site.xml` parameters.">Setting `yarn-site.xml` parameters.</a>
@@ -110,9 +110,9 @@ Promotion Local Allocation Buffers (PLABs) are used during Young collection. Mul
 	-XX:ParallelGCThreads= 8+(40-8)(5/8)=28
 
 
-<a name="The following are the recommended Java GC and HBase heap settings:"></a>
+<a name="The following are the recommended Java GC and HBase heap settings."></a>
 
-###The following are the recommended Java GC and HBase heap settings:
+###The following are the recommended Java GC and HBase heap settings.
 
 >Step 1. Give HBase enough heap size by editing the `hbase-env.sh` file. For example, the following snippet configures a 16GB heap size for HBase:
 
