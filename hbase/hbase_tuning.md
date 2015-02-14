@@ -1,19 +1,36 @@
+
+<a name="Performance Tuning HBase / Hadoop."></a>
+
 #Performance Tuning HBase / Hadoop.
 
----
-###Table of Contents
-
-1. <a href="#A">Hardware Configuration.</a>
-2. <a href="#B">Hadoop YARN Architecture.</a>
-3. <a href="#C">HBASE `JAVA_OPTS` configuration.</a>
-4. <a href="#D">Setting `yarn-site.xml` parameters.</a>
-5. <a href="#E">Hadoop `JAVA_OPTS` Configuration.</a>
-6. <a href="#F">Hadoop/Hbase `sysctl.conf` parameters.</a>
-7. <a href="#G">Monitoring JVM.</a>
 
 ---
 
-<a name="A"></a>
+Table of Contents
+
+1. <a href="#Server Hardware Details.">Server Hardware Details.</a>
+2. <a href="#Hadoop YARN Architecture.">Hadoop YARN Architecture.</a>
+	 * <a href="#Step By Step - YARN Workflow.">Step By Step - YARN Workflow.</a>
+	 * <a href="#Diagram">Diagram</a>
+3. <a href="#HBASE `JAVA_OPTS` configuration.">HBASE `JAVA_OPTS` configuration.</a>
+	 * <a href="#Details of Options used in `hbase`.">Details of Options used in `hbase`.</a>
+	 * <a href="#The following are the recommended Java GC and HBase heap settings:">The following are the recommended Java GC and HBase heap settings:</a>
+	 * <a href="#How it works.">How it works.</a>
+	 * <a href="#Complete Configuration below">Complete Configuration below</a>
+4. <a href="#Setting `yarn-site.xml` parameters.">Setting `yarn-site.xml` parameters.</a>
+5. <a href="#Hadoop `JAVA_OPTS` Configuration.">Hadoop `JAVA_OPTS` Configuration.</a>
+6. <a href="#Hadoop/Hbase `sysctl.conf` parameters.">Hadoop/Hbase `sysctl.conf` parameters.</a>
+	 * <a href="#Completed Script below. Run it as `root`.">Completed Script below. Run it as `root`.</a>
+7. <a href="#Extras - Monitoring JVM">Extras - Monitoring JVM</a>
+	 * <a href="#More Details on IPv4">More Details on IPv4</a>
+
+---
+
+
+
+
+
+<a name="Server Hardware Details."></a>
 
 ## Server Hardware Details.
 
@@ -24,7 +41,10 @@ Based on these parameter we will be setting the configuration below.
 	Ethernet 	: 1G 
 
 
-<a name="B"></a>
+
+
+
+<a name="Hadoop YARN Architecture."></a>
 
 ## Hadoop YARN Architecture.
 
@@ -32,6 +52,9 @@ Courtesy : Hadoop
 
 ![alt text](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/yarn_architecture.gif "Hadoop Arch")
 
+
+
+<a name="Step By Step - YARN Workflow."></a>
 
 ### Step By Step - YARN Workflow.
 
@@ -52,13 +75,18 @@ Courtesy : Hadoop
 10. `Child` retrieves job resources from shared filesystem (HDFS).
 11. `run` MapTask or Reduce Task.
 
+
+<a name="Diagram"></a>
+
 ### Diagram
 
 ![Hadoop Yarn Arch](https://lh3.googleusercontent.com/-Lb-jK6oi-1I/VNuYS7Pmq2I/AAAAAAAAkZU/NdTiU-aXYGw/w683-h624-no/YARN.jpg "Hadoop Yarn MR2")
 
 
-<a name="C"></a>
 
+
+
+<a name="HBASE `JAVA_OPTS` configuration."></a>
 
 ## HBASE `JAVA_OPTS` configuration. 
 
@@ -66,6 +94,9 @@ Cloudera on Hbase Memory : "RAM, RAM, RAM. Don't starve HBase.".
 So the primary goal is to not starve `hbase` of any RAM. If you have RAM then feed `hbase`.
 
 Cloudera on Swapping : "Watch out for swapping. Set swappiness to 0".
+
+
+<a name="Details of Options used in `hbase`."></a>
 
 ###Details of Options used in `hbase`.
 
@@ -77,6 +108,9 @@ Promotion Local Allocation Buffers (PLABs) are used during Young collection. Mul
 
 	-XX:ParallelGCThreads=8+(logical processors-8)(5/8)
 	-XX:ParallelGCThreads= 8+(40-8)(5/8)=28
+
+
+<a name="The following are the recommended Java GC and HBase heap settings:"></a>
 
 ###The following are the recommended Java GC and HBase heap settings:
 
@@ -97,6 +131,9 @@ Promotion Local Allocation Buffers (PLABs) are used during Young collection. Mul
 	export HBASE_OPTS="$HBASE_OPTS -XX:CMSInitiatingOccupancyFraction=60"
 
 Sync the changes across the cluster and restart HBase.
+
+
+<a name="How it works."></a>
 
 ### How it works.
 
@@ -178,6 +215,9 @@ For the old generation, the concurrent collection (CMS) generally cannot be sped
 
 
 
+
+<a name="Complete Configuration below"></a>
+
 ### Complete Configuration below
 
 	# The maximum amount of heap to use, in MB. Default is 1000.
@@ -205,7 +245,10 @@ For the old generation, the concurrent collection (CMS) generally cannot be sped
 	export HBASE_REST_OPTS="$HBASE_REST_OPTS $HBASE_JMX_BASE -Dcom.sun.management.jmxremote.port=10105"
 
 
-<a name="D"></a>
+
+
+
+<a name="Setting `yarn-site.xml` parameters."></a>
 
 ## Setting `yarn-site.xml` parameters.
 
@@ -226,7 +269,10 @@ In `yarn-site.xml`
 YARN will allocate Containers with RAM amounts greater than the `yarn.scheduler.minimum-allocation-mb`.
 
 
-<a name="E"></a>
+
+
+
+<a name="Hadoop `JAVA_OPTS` Configuration."></a>
 
 ## Hadoop `JAVA_OPTS` Configuration.
 
@@ -247,8 +293,11 @@ More information on changing these Parameter are here [`How to Plan and Configur
 
 
 
-<a name="F"></a>
 
+
+
+
+<a name="Hadoop/Hbase `sysctl.conf` parameters."></a>
 
 ##Hadoop/Hbase `sysctl.conf` parameters.
 
@@ -315,6 +364,9 @@ More information on changing these Parameter are here [`How to Plan and Configur
 	[ahmed@server ~]# echo '* - nofile 100000' >> /etc/security/limits.conf
 	[ahmed@server ~]# echo '* - nproc 100000' >> /etc/security/limits.conf
 
+
+<a name="Completed Script below. Run it as `root`."></a>
+
 ###Completed Script below. Run it as `root`.
 
 	echo "Taking sysctl.conf backup..."
@@ -351,7 +403,10 @@ More information on changing these Parameter are here [`How to Plan and Configur
 	echo "############################################################"
 
 
-<a name="G"></a>
+
+
+
+<a name="Extras - Monitoring JVM"></a>
 
 ##Extras - Monitoring JVM
 
@@ -367,6 +422,9 @@ Below we are setting the jmxport which a remote monitoring script/server can pic
 	-Dcom.sun.management.jmxremote.port=10101
 
 
+
+
+<a name="More Details on IPv4"></a>
 
 ###More Details on IPv4
 
