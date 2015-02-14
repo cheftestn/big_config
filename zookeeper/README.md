@@ -1,4 +1,20 @@
+
+<a name="Setting up Zookeeper"></a>
+
 # Setting up Zookeeper 
+
+
+---
+
+Table of Contents
+
+1. <a href="#Initial setup on all `zookeeper` servers.">Initial setup on all `zookeeper` servers.</a>
+2. <a href="#Assigning `id`s to `zookeeper` nodes.">Assigning `id`s to `zookeeper` nodes.</a>
+3. <a href="#Starting up `zookeeper` server">Starting up `zookeeper` server</a>
+4. <a href="#Testing `zookeeper`">Testing `zookeeper`</a>
+
+---
+
 
 Setting up on `AHMD-HBASE-RS01`,`AHMD-HBASE-RS02`,`AHMD-HBASE-RS03`
 
@@ -9,7 +25,10 @@ Thumb rule for `zookeeper` is the have odd number of `zookeeper` in a cluster, s
 	AHMD-HBASE-RS02
 	AHMD-HBASE-RS03
 
-### Initial setup on all `zookeeper` servers.
+
+<a name="Initial setup on all `zookeeper` servers."></a>
+
+## Initial setup on all `zookeeper` servers.
 
 Extracting `zookeeper`
 	
@@ -40,7 +59,10 @@ In the above line `server.1` where `1` is the id for server `AHMD-HBASE-RS01` an
 
 So to assign an `id` to server we need to create a `myid` file `dataDir` path, which is currently set to `/data/zookeeper`
 
-### Assigning `id`s to `zookeeper` nodes.
+
+<a name="Assigning `id`s to `zookeeper` nodes."></a>
+
+## Assigning `id`s to `zookeeper` nodes.
 
 So in Server `AHMD-HBASE-RS01` which has an `id` of `1`, use the below command.
 
@@ -54,7 +76,10 @@ So in Server `AHMD-HBASE-RS01` which has an `id` of `1`, use the below command.
 
 	echo "3" > /data/zookeeper/myid
  
-### Starting up `zookeeper` server 
+
+<a name="Starting up `zookeeper` server"></a>
+
+## Starting up `zookeeper` server 
 
 Use below command on all `zookeeper` servers.
 
@@ -63,7 +88,10 @@ Use below command on all `zookeeper` servers.
 Log `zookeeper.out` of the startup will in the directory were the above command was executed.
 
 
-### Testing `zookeeper`
+
+<a name="Testing `zookeeper`"></a>
+
+## Testing `zookeeper`
 
 `zookeeper` by default will run on port `2181`. To verify of the service is running on this port, use `telnet` to verify. if you get the `^]` char then we are all good. 
 
