@@ -382,3 +382,4 @@ Then run the command below and reboot the host machine.
 	http://www.cyberciti.biz/faq/kvm-virtualization-in-redhat-centos-scientific-linux-6/
 	https://www.howtoforge.com/vnc-server-installation-centos-6.5
 	https://www.howtoforge.com/virtualization-with-kvm-on-a-centos-6.4-server-p4
+	
