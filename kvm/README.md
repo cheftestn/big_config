@@ -1,7 +1,7 @@
 
-<a name="KVM Installation on CentOS 6.x"></a>
+<a name="KVM Installation on CentOS 6.x."></a>
 
-#KVM Installation on CentOS 6.x
+#KVM Installation on CentOS 6.x.
 
 
 ---
@@ -9,27 +9,27 @@
 ###Table of Contents
 
 1. <a href="#Preliminary Check - Check Hardware Virtualization Support.">Preliminary Check - Check Hardware Virtualization Support.</a>
-2. <a href="#Disable SELinux">Disable SELinux</a>
+2. <a href="#Disable SELinux.">Disable SELinux.</a>
 3. <a href="#Install KVM, QEMU and RPMs/packages.">Install KVM, QEMU and RPMs/packages.</a>
 	 * <a href="#Install KVM, QEMU and user-space tools.">Install KVM, QEMU and user-space tools.</a>
-	 * <a href="#Start libvirtd daemon, and set it to auto-start:">Start libvirtd daemon, and set it to auto-start:</a>
+	 * <a href="#Start libvirtd daemon, and set it to auto-start.">Start libvirtd daemon, and set it to auto-start.</a>
 	 * <a href="#Check if KVM has successfully been installed.">Check if KVM has successfully been installed.</a>
 	 * <a href="#Also we can do a `group install` (Optional)">Also we can do a `group install` (Optional)</a>
-4. <a href="#Configure Linux Bridge for VM Networking">Configure Linux Bridge for VM Networking</a>
-	 * <a href="#Install `bridge-utils`">Install `bridge-utils`</a>
+4. <a href="#Configure Linux Bridge for VM Networking.">Configure Linux Bridge for VM Networking.</a>
+	 * <a href="#Install `bridge-utils`.">Install `bridge-utils`.</a>
 	 * <a href="#Disable Network Manager.">Disable Network Manager.</a>
-	 * <a href="#Create `bridge`">Create `bridge`</a>
-5. <a href="#Install VirtManager">Install VirtManager</a>
-	 * <a href="#To install VirtManager:">To install VirtManager:</a>
+	 * <a href="#Create `bridge`.">Create `bridge`.</a>
+5. <a href="#Install VirtManager.">Install VirtManager.</a>
+	 * <a href="#To install VirtManager.">To install VirtManager.</a>
 	 * <a href="#Launch VirtManager Remotely.">Launch VirtManager Remotely.</a>
-	 * <a href="#Create `wrapper` for `virt-manager`">Create `wrapper` for `virt-manager`</a>
+	 * <a href="#Create `wrapper` for `virt-manager`.">Create `wrapper` for `virt-manager`.</a>
 6. <a href="#Installing vnc-server.">Installing vnc-server.</a>
-	 * <a href="#Initial Installation">Initial Installation</a>
-	 * <a href="#Adding VNC user and setting `vncpasswd`">Adding VNC user and setting `vncpasswd`</a>
+	 * <a href="#Initial Installation.">Initial Installation.</a>
+	 * <a href="#Adding VNC user and setting `vncpasswd`.">Adding VNC user and setting `vncpasswd`.</a>
 	 * <a href="#Logging in from Remote machine.">Logging in from Remote machine.</a>
-	 * <a href="#Screenshot">Screenshot</a>
-7. <a href="#Troubleshooting KVM and VirtManager setup">Troubleshooting KVM and VirtManager setup</a>
-8. <a href="#Useful Links">Useful Links</a>
+	 * <a href="#Screenshot.">Screenshot.</a>
+7. <a href="#Troubleshooting KVM and VirtManager setup.">Troubleshooting KVM and VirtManager setup.</a>
+8. <a href="#Useful Links.">Useful Links.</a>
 
 ---
 
@@ -51,9 +51,9 @@ IF NOT THEN DO NOT PROCEED.
 
 
 
-<a name="Disable SELinux"></a>
+<a name="Disable SELinux."></a>
 
-##Disable SELinux
+##Disable SELinux.
 
 Before installing KVM, be aware that there are several SELinux booleans that can affect the behavior of KVM and libvirt. We will set `disable` in SELinux 
 
@@ -80,9 +80,9 @@ Install `KVM` and `virtinst` (a tool to create VMs).
 	$ sudo yum install kvm libvirt python-virtinst qemu-kvm
 
 
-<a name="Start libvirtd daemon, and set it to auto-start:"></a>
+<a name="Start libvirtd daemon, and set it to auto-start."></a>
 
-###Start libvirtd daemon, and set it to auto-start:
+###Start libvirtd daemon, and set it to auto-start.
 	
 	$ sudo service libvirtd start
 	$ sudo chkconfig libvirtd on
@@ -107,17 +107,17 @@ Install `KVM` and `virtinst` (a tool to create VMs).
 
 
 
-<a name="Configure Linux Bridge for VM Networking"></a>
+<a name="Configure Linux Bridge for VM Networking."></a>
 
-##Configure Linux Bridge for VM Networking
+##Configure Linux Bridge for VM Networking.
 
 Installing KVM alone does not allow VMs to communicate with each other or access external networks. 
 We will create a "bridged networking" via Linux bridge.
 
 
-<a name="Install `bridge-utils`"></a>
+<a name="Install `bridge-utils`."></a>
 
-###Install `bridge-utils`
+###Install `bridge-utils`.
 
 Install a package needed to create and manage bridge devices:
 
@@ -136,9 +136,9 @@ Disable Network Manager service if it's enabled, and switch to default net manag
 	$ sudo service network start  
 
 
-<a name="Create `bridge`"></a>
+<a name="Create `bridge`."></a>
 
-###Create `bridge`
+###Create `bridge`.
 
 To create a `bridge` we need to configure an active `network interface` like `eth0`.
 Here we have a `static` IP assignment. 
@@ -214,17 +214,17 @@ This will restart the Network. IMPORTANT : make sure we have the `bridge` config
 	          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
 	
 
-<a name="Install VirtManager"></a>
+<a name="Install VirtManager."></a>
 
-##Install VirtManager
+##Install VirtManager.
 
 The final step is to install a desktop UI called VirtManager for managing virtual machines (VMs) through libvirt.
 
 
 
-<a name="To install VirtManager:"></a>
+<a name="To install VirtManager."></a>
 
-###To install VirtManager:
+###To install VirtManager.
 
 	$ sudo yum install virt-manager libvirt qemu-system-x86 openss
 
@@ -243,9 +243,9 @@ Make sure we have the below line uncommented in `sshd_config`
 
 
 
-<a name="Create `wrapper` for `virt-manager`"></a>
+<a name="Create `wrapper` for `virt-manager`."></a>
 
-###Create `wrapper` for `virt-manager`
+###Create `wrapper` for `virt-manager`.
 
 Create a following executable `wrapper` script for virt-manager.
 
@@ -269,9 +269,9 @@ Let give it `exe` permissions.
 ## Installing vnc-server.
 
 
-<a name="Initial Installation"></a>
+<a name="Initial Installation."></a>
 
-###Initial Installation
+###Initial Installation.
 
 Installing base libraries for `vncserver` to work.
 
@@ -288,9 +288,9 @@ Now make the service on after every reboot
 	chkconfig vncserver on
 
 
-<a name="Adding VNC user and setting `vncpasswd`"></a>
+<a name="Adding VNC user and setting `vncpasswd`."></a>
 
-###Adding VNC user and setting `vncpasswd`
+###Adding VNC user and setting `vncpasswd`.
 
 Assuming we already have a user on the server `ahmed`
 
@@ -337,16 +337,16 @@ And the `password` will be the `vncpasswd` set during the configuration above.
 
 
 
-<a name="Screenshot"></a>
+<a name="Screenshot."></a>
 
-### Screenshot
+### Screenshot.
 
 ![Screen Shot](https://lh4.googleusercontent.com/-Bua9uz3zd-0/VOTXB_xPgqI/AAAAAAAAkeM/42LlKQ3_zVM/w622-h484-no/CompleteInstallation.PNG "VNC Screen Shot")
 
 
-<a name="Troubleshooting KVM and VirtManager setup"></a>
+<a name="Troubleshooting KVM and VirtManager setup."></a>
 
-##Troubleshooting KVM and VirtManager setup
+##Troubleshooting KVM and VirtManager setup.
 
 >a. If you see the following error when attempting to launch VirtManager remotely, make sure that you use the wrapper script (vm) to launch it, as described above.
 
@@ -374,12 +374,11 @@ Then run the command below and reboot the host machine.
 
 
 
-<a name="Useful Links"></a>
+<a name="Useful Links."></a>
 
-## Useful Links
+## Useful Links.
 
 	http://xmodulo.com/install-configure-kvm-centos.html
 	http://www.cyberciti.biz/faq/kvm-virtualization-in-redhat-centos-scientific-linux-6/
 	https://www.howtoforge.com/vnc-server-installation-centos-6.5
 	https://www.howtoforge.com/virtualization-with-kvm-on-a-centos-6.4-server-p4
-	
