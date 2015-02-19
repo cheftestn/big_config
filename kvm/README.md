@@ -29,7 +29,12 @@
 	 * <a href="#Logging in from Remote machine.">Logging in from Remote machine.</a>
 	 * <a href="#Screenshot.">Screenshot.</a>
 7. <a href="#Troubleshooting KVM and VirtManager setup.">Troubleshooting KVM and VirtManager setup.</a>
-8. <a href="#Useful Links.">Useful Links.</a>
+8. <a href="#Upgrade CPU/RAM in KVM.">Upgrade CPU/RAM in KVM.</a>
+	 * <a href="#Listing `virtual` servers.">Listing `virtual` servers.</a>
+	 * <a href="#Getting Information about `VM`.">Getting Information about `VM`.</a>
+	 * <a href="#Edit Hardware for each `VM`.">Edit Hardware for each `VM`.</a>
+	 * <a href="#Checking `VM` information.">Checking `VM` information.</a>
+9. <a href="#Useful Links.">Useful Links.</a>
 
 ---
 
@@ -373,10 +378,132 @@ Then run the command below and reboot the host machine.
 
 
 
+<a name="Upgrade CPU/RAM in KVM."></a>
+
+##Upgrade CPU/RAM in KVM.
+
+You can follow the following steps to increase memory size of your KVM virtual machine.
+
+1. Update the configuration using command `sudo virsh edit <vm-name>`
+2. `reboot` VM server.
+ 
+
+
+<a name="Listing `virtual` servers."></a>
+
+###Listing `virtual` servers.
+
+	[ahmed@ahmed-server ~]$ sudo virsh  list
+	 Id    Name                           State
+	----------------------------------------------------
+	 8     VM-1                           running
+	 12    VM-2                           running
+	 13    VM-3                           running
+	 15    VM-4                           running
+
+
+
+<a name="Getting Information about `VM`."></a>
+
+###Getting Information about `VM`.
+	
+	[ahmed@ahmed-server ~]$ sudo virsh dominfo VM-1
+	Id:             8
+	Name:           VM-1
+	UUID:           588ff640-25be-9b18-5eb3-f93c471848e6
+	OS Type:        hvm
+	State:          running
+	CPU(s):         4
+	CPU time:       503.3s
+	Max memory:     8388608 KiB
+	Used memory:    8388608 KiB
+	Persistent:     yes
+	Autostart:      disable
+	Managed save:   no
+	Security model: none
+	Security DOI:   0
+
+
+<a name="Edit Hardware for each `VM`."></a>
+
+###Edit Hardware for each `VM`.
+	
+	[ahmed@ahmed-server ~]$ sudo virsh edit VM-1
+	Domain VM-1 XML configuration edited.
+
+Here is now the XML looks like.
+
+**Before**
+
+	<domain type='kvm'>
+	  <name>VM-1</name>
+	  <uuid>588ff640-25be-9b18-5eb3-f93c471848e6</uuid>
+	  <memory unit='KiB'>8388608</memory>
+	  <currentMemory unit='KiB'>8388608</currentMemory>
+	  <vcpu placement='static'>4</vcpu>
+	  <os>
+	    <type arch='x86_64' machine='rhel6.5.0'>hvm</type>
+	    <boot dev='hd'/>
+	  </os>
+	  <features>
+	    <acpi/>
+	    <apic/>
+	    <pae/>
+	  </features>
+		...
+		...
+	</domain>
+
+**After**
+
+	<domain type='kvm'>
+	  <name>VM-1</name>
+	  <uuid>588ff640-25be-9b18-5eb3-f93c471848e6</uuid>
+	  <memory unit='KiB'>33554432</memory>
+	  <currentMemory unit='KiB'>33554432</currentMemory>
+	  <vcpu placement='static'>8</vcpu>
+	  <os>
+	    <type arch='x86_64' machine='rhel6.5.0'>hvm</type>
+	    <boot dev='hd'/>
+	  </os>
+	  <features>
+	    <acpi/>
+	    <apic/>
+	    <pae/>
+	  </features>
+		...
+		...
+	</domain>
+
+
+
+<a name="Checking `VM` information."></a>
+
+###Checking `VM` information.
+	
+	[ahmed@ahmed-server ~]$ sudo virsh dominfo VM-1
+	Id:             -
+	Name:           VM-1
+	UUID:           588ff640-25be-9b18-5eb3-f93c471848e6
+	OS Type:        hvm
+	State:          shut off
+	CPU(s):         8
+	Max memory:     33554432 KiB
+	Used memory:    33554432 KiB
+	Persistent:     yes
+	Autostart:      disable
+	Managed save:   no
+	Security model: none
+	Security DOI:   0
+
+Once this is done restart the server.
+And we are done.
+
+
 
 <a name="Useful Links."></a>
 
-## Useful Links.
+##Useful Links.
 
 	http://xmodulo.com/install-configure-kvm-centos.html
 	http://www.cyberciti.biz/faq/kvm-virtualization-in-redhat-centos-scientific-linux-6/
