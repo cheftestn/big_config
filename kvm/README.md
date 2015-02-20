@@ -34,6 +34,7 @@
 	 * <a href="#Getting Information about `VM`.">Getting Information about `VM`.</a>
 	 * <a href="#Edit Hardware for each `VM`.">Edit Hardware for each `VM`.</a>
 	 * <a href="#Checking `VM` information.">Checking `VM` information.</a>
+	 * <a href="#Interface Changes.">Interface Changes.</a>
 9. <a href="#Useful Links.">Useful Links.</a>
 
 ---
@@ -499,6 +500,38 @@ Here is now the XML looks like.
 Once this is done restart the server.
 And we are done.
 
+
+<a name="Interface Changes."></a>
+
+###Interface Changes.
+
+By default VMs take 10M as their transmission speed.
+
+`virtio` - virtual driver which takes the speed of the bridge (which is 1G).
+`e1000` - making driver use the 1G speed (this again depends on the Bridge).
+
+Currently have set the speed `virtio`.
+
+Below are details on how to change it. All command needs to be run on the HOST machine (36)
+User Command below to change configuration on KVM.
+
+	sudo virsh edit <vm_name>
+	sudo virsh edit VM-1
+
+This will bring up the XML which has the VM configuration which can be changed.
+Changes with take effect on reboot. 
+
+Change Interface Adding `<model type='virtio'/>` below.
+By Default it takes 10M driver.
+
+	<interface type='bridge'>
+	  <mac address='52:54:00:60:08:62'/>
+	  <source bridge='br0'/>
+	  <model type='virtio'/>
+	  <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
+	</interface>
+
+More Details here : https://help.ubuntu.com/community/KVM/Networking#virtio 
 
 
 <a name="Useful Links."></a>
