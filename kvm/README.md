@@ -1,5 +1,5 @@
 
-<a name="KVM Installation on CentOS 6.x."></a>
+<a name="KVMInstallationonCentOS6x"></a>
 
 #KVM Installation on CentOS 6.x.
 
@@ -8,34 +8,34 @@
 
 ###Table of Contents
 
-1. <a href="#Preliminary Check - Check Hardware Virtualization Support.">Preliminary Check - Check Hardware Virtualization Support.</a>
-2. <a href="#Disable SELinux.">Disable SELinux.</a>
-3. <a href="#Install KVM, QEMU and RPMs/packages.">Install KVM, QEMU and RPMs/packages.</a>
-	 * <a href="#Install KVM, QEMU and user-space tools.">Install KVM, QEMU and user-space tools.</a>
-	 * <a href="#Start libvirtd daemon, and set it to auto-start.">Start libvirtd daemon, and set it to auto-start.</a>
-	 * <a href="#Check if KVM has successfully been installed.">Check if KVM has successfully been installed.</a>
-	 * <a href="#Also we can do a `group install` (Optional)">Also we can do a `group install` (Optional)</a>
-4. <a href="#Configure Linux Bridge for VM Networking.">Configure Linux Bridge for VM Networking.</a>
-	 * <a href="#Install `bridge-utils`.">Install `bridge-utils`.</a>
-	 * <a href="#Disable Network Manager.">Disable Network Manager.</a>
-	 * <a href="#Create `bridge`.">Create `bridge`.</a>
-5. <a href="#Install VirtManager.">Install VirtManager.</a>
-	 * <a href="#To install VirtManager.">To install VirtManager.</a>
-	 * <a href="#Launch VirtManager Remotely.">Launch VirtManager Remotely.</a>
-	 * <a href="#Create `wrapper` for `virt-manager`.">Create `wrapper` for `virt-manager`.</a>
-6. <a href="#Installing vnc-server.">Installing vnc-server.</a>
-	 * <a href="#Initial Installation.">Initial Installation.</a>
-	 * <a href="#Adding VNC user and setting `vncpasswd`.">Adding VNC user and setting `vncpasswd`.</a>
-	 * <a href="#Logging in from Remote machine.">Logging in from Remote machine.</a>
-	 * <a href="#Screenshot.">Screenshot.</a>
-7. <a href="#Troubleshooting KVM and VirtManager setup.">Troubleshooting KVM and VirtManager setup.</a>
-8. <a href="#Upgrade CPU/RAM in KVM.">Upgrade CPU/RAM in KVM.</a>
-	 * <a href="#Listing `virtual` servers.">Listing `virtual` servers.</a>
-	 * <a href="#Getting Information about `VM`.">Getting Information about `VM`.</a>
-	 * <a href="#Edit Hardware for each `VM`.">Edit Hardware for each `VM`.</a>
-	 * <a href="#Checking `VM` information.">Checking `VM` information.</a>
-	 * <a href="#Interface Changes.">Interface Changes.</a>
-9. <a href="#Useful Links.">Useful Links.</a>
+* <a href="#PreliminaryCheckCheckHardwareVirtualizationSupport">Preliminary Check - Check Hardware Virtualization Support.</a>
+* <a href="#DisableSELinux">Disable SELinux.</a>
+* <a href="#InstallKVMQEMUandRPMspackages">Install KVM, QEMU and RPMs/packages.</a>
+	* <a href="#InstallKVMQEMUanduserspacetools">Install KVM, QEMU and user-space tools.</a>
+	* <a href="#Startlibvirtddaemonandsetittoautostart">Start libvirtd daemon, and set it to auto-start.</a>
+	* <a href="#CheckifKVMhassuccessfullybeeninstalled">Check if KVM has successfully been installed.</a>
+	* <a href="#AlsowecandoagroupinstallOptional">Also we can do a `group install` (Optional)</a>
+* <a href="#ConfigureLinuxBridgeforVMNetworking">Configure Linux Bridge for VM Networking.</a>
+	* <a href="#Installbridgeutils">Install `bridge-utils`.</a>
+	* <a href="#DisableNetworkManager">Disable Network Manager.</a>
+	* <a href="#Createbridge">Create `bridge`.</a>
+* <a href="#InstallVirtManager">Install VirtManager.</a>
+	* <a href="#ToinstallVirtManager">To install VirtManager.</a>
+	* <a href="#LaunchVirtManagerRemotely">Launch VirtManager Remotely.</a>
+	* <a href="#Createwrapperforvirtmanager">Create `wrapper` for `virt-manager`.</a>
+* <a href="#Installingvncserver">Installing vnc-server.</a>
+	* <a href="#InitialInstallation">Initial Installation.</a>
+	* <a href="#AddingVNCuserandsettingvncpasswd">Adding VNC user and setting `vncpasswd`.</a>
+	* <a href="#LogginginfromRemotemachine">Logging in from Remote machine.</a>
+	* <a href="#Screenshot">Screenshot.</a>
+* <a href="#TroubleshootingKVMandVirtManagersetup">Troubleshooting KVM and VirtManager setup.</a>
+* <a href="#UpgradeCPURAMinKVM">Upgrade CPU/RAM in KVM.</a>
+	* <a href="#Listingvirtualservers">Listing `virtual` servers.</a>
+	* <a href="#GettingInformationaboutVM">Getting Information about `VM`.</a>
+	* <a href="#EditHardwareforeachVM">Edit Hardware for each `VM`.</a>
+	* <a href="#CheckingVMinformation">Checking `VM` information.</a>
+	* <a href="#InterfaceChanges">Interface Changes.</a>
+* <a href="#UsefulLinks">Useful Links.</a>
 
 ---
 
@@ -44,7 +44,7 @@
 `KVM` is a `kernel-based Virutal Machine` which grows quickly in maturity and popularity in the Linux server market. Red Hat officially dropped `Xen` in favor of `KVM` since `RHEL 6`. With `KVM` being officially supported by Red Hat, installing `KVM` on RedHat-based systems should be a breeze.
 
 
-<a name="Preliminary Check - Check Hardware Virtualization Support."></a>
+<a name="PreliminaryCheckCheckHardwareVirtualizationSupport"></a>
 
 ##Preliminary Check - Check Hardware Virtualization Support.
 
@@ -57,7 +57,7 @@ IF NOT THEN DO NOT PROCEED.
 
 
 
-<a name="Disable SELinux."></a>
+<a name="DisableSELinux"></a>
 
 ##Disable SELinux.
 
@@ -72,21 +72,21 @@ Now reboot the server.
 
 
 
-<a name="Install KVM, QEMU and RPMs/packages."></a>
+<a name="InstallKVMQEMUandRPMspackages"></a>
 
 ##Install KVM, QEMU and RPMs/packages.
 
 Install `KVM` and `virtinst` (a tool to create VMs).
 
 
-<a name="Install KVM, QEMU and user-space tools."></a>
+<a name="InstallKVMQEMUanduserspacetools"></a>
 
 ###Install KVM, QEMU and user-space tools.
 
 	$ sudo yum install kvm libvirt python-virtinst qemu-kvm
 
 
-<a name="Start libvirtd daemon, and set it to auto-start."></a>
+<a name="Startlibvirtddaemonandsetittoautostart"></a>
 
 ###Start libvirtd daemon, and set it to auto-start.
 	
@@ -94,7 +94,7 @@ Install `KVM` and `virtinst` (a tool to create VMs).
 	$ sudo chkconfig libvirtd on
 
 
-<a name="Check if KVM has successfully been installed."></a>
+<a name="CheckifKVMhassuccessfullybeeninstalled"></a>
 
 ###Check if KVM has successfully been installed.
 	
@@ -104,7 +104,7 @@ Install `KVM` and `virtinst` (a tool to create VMs).
 	----------------------------------------------------
 
 
-<a name="Also we can do a `group install` (Optional)"></a>
+<a name="AlsowecandoagroupinstallOptional"></a>
 
 ###Also we can do a `group install` (Optional)
 
@@ -113,7 +113,7 @@ Install `KVM` and `virtinst` (a tool to create VMs).
 
 
 
-<a name="Configure Linux Bridge for VM Networking."></a>
+<a name="ConfigureLinuxBridgeforVMNetworking"></a>
 
 ##Configure Linux Bridge for VM Networking.
 
@@ -121,7 +121,7 @@ Installing KVM alone does not allow VMs to communicate with each other or access
 We will create a "bridged networking" via Linux bridge.
 
 
-<a name="Install `bridge-utils`."></a>
+<a name="Installbridgeutils"></a>
 
 ###Install `bridge-utils`.
 
@@ -130,7 +130,7 @@ Install a package needed to create and manage bridge devices:
 	$ sudo yum install bridge-utils
 
 
-<a name="Disable Network Manager."></a>
+<a name="DisableNetworkManager"></a>
 
 ###Disable Network Manager.
 
@@ -142,7 +142,7 @@ Disable Network Manager service if it's enabled, and switch to default net manag
 	$ sudo service network start  
 
 
-<a name="Create `bridge`."></a>
+<a name="Createbridge"></a>
 
 ###Create `bridge`.
 
@@ -220,7 +220,7 @@ This will restart the Network. IMPORTANT : make sure we have the `bridge` config
 	          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
 	
 
-<a name="Install VirtManager."></a>
+<a name="InstallVirtManager"></a>
 
 ##Install VirtManager.
 
@@ -228,7 +228,7 @@ The final step is to install a desktop UI called VirtManager for managing virtua
 
 
 
-<a name="To install VirtManager."></a>
+<a name="ToinstallVirtManager"></a>
 
 ###To install VirtManager.
 
@@ -236,7 +236,7 @@ The final step is to install a desktop UI called VirtManager for managing virtua
 
 
 
-<a name="Launch VirtManager Remotely."></a>
+<a name="LaunchVirtManagerRemotely"></a>
 
 ###Launch VirtManager Remotely.
 
@@ -249,7 +249,7 @@ Make sure we have the below line uncommented in `sshd_config`
 
 
 
-<a name="Create `wrapper` for `virt-manager`."></a>
+<a name="Createwrapperforvirtmanager"></a>
 
 ###Create `wrapper` for `virt-manager`.
 
@@ -270,12 +270,12 @@ Let give it `exe` permissions.
 	$ sudo chmod +x /usr/bin/vm
 
 
-<a name="Installing vnc-server."></a>
+<a name="Installingvncserver"></a>
 
 ## Installing vnc-server.
 
 
-<a name="Initial Installation."></a>
+<a name="InitialInstallation"></a>
 
 ###Initial Installation.
 
@@ -294,7 +294,7 @@ Now make the service on after every reboot
 	chkconfig vncserver on
 
 
-<a name="Adding VNC user and setting `vncpasswd`."></a>
+<a name="AddingVNCuserandsettingvncpasswd"></a>
 
 ###Adding VNC user and setting `vncpasswd`.
 
@@ -331,7 +331,7 @@ Now restart `vncserver`.
 	[root@server1 ~]# 
 
 
-<a name="Logging in from Remote machine."></a>
+<a name="LogginginfromRemotemachine"></a>
 
 ###Logging in from Remote machine.
 
@@ -343,14 +343,14 @@ And the `password` will be the `vncpasswd` set during the configuration above.
 
 
 
-<a name="Screenshot."></a>
+<a name="Screenshot"></a>
 
 ### Screenshot.
 
 ![Screen Shot](https://lh4.googleusercontent.com/-Bua9uz3zd-0/VOTXB_xPgqI/AAAAAAAAkeM/42LlKQ3_zVM/w622-h484-no/CompleteInstallation.PNG "VNC Screen Shot")
 
 
-<a name="Troubleshooting KVM and VirtManager setup."></a>
+<a name="TroubleshootingKVMandVirtManagersetup"></a>
 
 ##Troubleshooting KVM and VirtManager setup.
 
@@ -379,7 +379,7 @@ Then run the command below and reboot the host machine.
 
 
 
-<a name="Upgrade CPU/RAM in KVM."></a>
+<a name="UpgradeCPURAMinKVM"></a>
 
 ##Upgrade CPU/RAM in KVM.
 
@@ -390,7 +390,7 @@ You can follow the following steps to increase memory size of your KVM virtual m
  
 
 
-<a name="Listing `virtual` servers."></a>
+<a name="Listingvirtualservers"></a>
 
 ###Listing `virtual` servers.
 
@@ -404,7 +404,7 @@ You can follow the following steps to increase memory size of your KVM virtual m
 
 
 
-<a name="Getting Information about `VM`."></a>
+<a name="GettingInformationaboutVM"></a>
 
 ###Getting Information about `VM`.
 	
@@ -425,7 +425,7 @@ You can follow the following steps to increase memory size of your KVM virtual m
 	Security DOI:   0
 
 
-<a name="Edit Hardware for each `VM`."></a>
+<a name="EditHardwareforeachVM"></a>
 
 ###Edit Hardware for each `VM`.
 	
@@ -478,7 +478,7 @@ Here is now the XML looks like.
 
 
 
-<a name="Checking `VM` information."></a>
+<a name="CheckingVMinformation"></a>
 
 ###Checking `VM` information.
 	
@@ -501,7 +501,7 @@ Once this is done restart the server.
 And we are done.
 
 
-<a name="Interface Changes."></a>
+<a name="InterfaceChanges"></a>
 
 ###Interface Changes.
 
@@ -534,7 +534,7 @@ By Default it takes 10M driver.
 More Details here : https://help.ubuntu.com/community/KVM/Networking#virtio 
 
 
-<a name="Useful Links."></a>
+<a name="UsefulLinks"></a>
 
 ##Useful Links.
 
