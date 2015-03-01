@@ -35,6 +35,13 @@
 	* <a href="#EditHardwareforeachVM">Edit Hardware for each `VM`.</a>
 	* <a href="#CheckingVMinformation">Checking `VM` information.</a>
 	* <a href="#InterfaceChanges">Interface Changes.</a>
+* <a href="#AddingHDDtoVirtualMachine">Adding HDD to Virtual Machine.</a>
+	* <a href="#FirstCreateaimageusingqemuimgcommand">First Create a `image` using `qemu-img` command.</a>
+	* <a href="#AddimagetoVMasavirtioHDD">Add `image` to VM as a `virtio` HDD.</a>
+	* <a href="#Method1AddingimagefromvirtmanagerUI">Method 1 - Adding `image` from `virt-manager` UI.</a>
+	* <a href="#Method2Addingimageusingvirshcommand">Method 2 - Adding `image` using `virsh` command.</a>
+	* <a href="#AddedimagewillappearasdevvdaintheVMformatitusingthemke2fscommand">Added `image` will appear as `/dev/vda` in the VM, format it using the `mke2fs` command.</a>
+	* <a href="#Addtoetcfstabsothatthedevicecanbemountedonbootup">Add to `/etc/fstab`, so that the device can be mounted on boot up.</a>
 * <a href="#UsefulLinks">Useful Links.</a>
 
 ---
@@ -532,6 +539,107 @@ By Default it takes 10M driver.
 	</interface>
 
 More Details here : https://help.ubuntu.com/community/KVM/Networking#virtio 
+
+
+<a name="AddingHDDtoVirtualMachine"></a>
+
+##Adding HDD to Virtual Machine.
+
+Steps to create `virtio` HDD.
+
+1. First Create a `image` using `qemu-img` command.
+2. Add `image` to VM as a `virtio` HDD. 
+3. This will appear as `/dev/vda` in the VM, format it using the `mke2fs` command.
+4. Add to `/etc/fstab`, so that the device can be mounted on boot up. 
+
+Details below. 
+
+
+<a name="FirstCreateaimageusingqemuimgcommand"></a>
+
+###First Create a `image` using `qemu-img` command.
+
+Below is the command to create `image`.
+	
+	[ahmed@ahmed-server ~]# qemu-img create VM-1-NEW-HDD.img 100G
+	
+This will create a HDD with 100GB disk.	
+
+
+<a name="AddimagetoVMasavirtioHDD"></a>
+
+###Add `image` to VM as a `virtio` HDD. 
+
+
+<a name="Method1AddingimagefromvirtmanagerUI"></a>
+
+####Method 1 - Adding `image` from `virt-manager` UI.
+
+You can use the `virsh` option. You can use the "Add Hardware" option in `virt-manager` to either add new space or assign existing space.
+Simply open the VM, go to "Details" and select "Add Hardware".
+
+!['Adding New HDD'](http://i.stack.imgur.com/wPC6b.png 'Adding New HDD')
+
+More Info Here : http://unix.stackexchange.com/questions/92967/how-to-add-extra-disks-on-kvm-based-vm
+
+
+
+<a name="Method2Addingimageusingvirshcommand"></a>
+
+####Method 2 - Adding `image` using `virsh` command.
+
+To edit the VM configuration use below command.
+ 
+	[ahmed@ahmed-server ~]# virsh edit VM-1
+
+Format 
+
+	virsh edit <Virtual_Machine_NAME>
+
+To add the image to the server add the below xml tag.
+
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='raw' cache='none'/>
+      <source file='/data/virtual_machines/images/VM-1-NEW-HDD.img'/>
+      <target dev='vda' bus='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
+    </disk>
+    
+Now reboot the VM, after restart you will see the new device.
+    
+	[ahmed@ahmed-server ~]# fdisk -l
+
+
+
+<a name="AddedimagewillappearasdevvdaintheVMformatitusingthemke2fscommand"></a>
+
+###Added `image` will appear as `/dev/vda` in the VM, format it using the `mke2fs` command.
+
+Before we mount the device we need to format the device.
+
+	[ahmed@ahmed-server ~]# mke2fs -j /dev/vda
+
+This will format the device.
+
+
+<a name="Addtoetcfstabsothatthedevicecanbemountedonbootup"></a>
+
+###Add to `/etc/fstab`, so that the device can be mounted on boot up. 
+
+	# /etc/fstab 
+	# 
+	# Column Details here : http://man7.org/linux/man-pages/man5/fstab.5.html          
+	# ------------------------------------------------------------------
+	/dev/vda			/data			ext3		defaults	0 0
+
+Now we can check by mounting.
+
+	[ahmed@ahmed-server ~]# mount -a 
+	
+Check by running below command.
+
+	[ahmed@ahmed-server ~]# df -h
+	
 
 
 <a name="UsefulLinks"></a>
