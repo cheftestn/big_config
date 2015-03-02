@@ -660,4 +660,10 @@ Check by running below command.
 	http://xmodulo.com/install-configure-kvm-centos.html
 	http://www.cyberciti.biz/faq/kvm-virtualization-in-redhat-centos-scientific-linux-6/
 	https://www.howtoforge.com/vnc-server-installation-centos-6.5
+	http://wiki.centos.org/HowTos/KVM
 	https://www.howtoforge.com/virtualization-with-kvm-on-a-centos-6.4-server-p4
+	https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Virtualization/sect-Virtualization-Virtualized_block_devices-Adding_storage_devices_to_guests.html
+	http://unix.stackexchange.com/questions/92967/how-to-add-extra-disks-on-kvm-based-vm
+	http://www.techotopia.com/index.php/Adding_a_New_Disk_Drive_to_a_CentOS_6_System
+	http://blog.zwiegnet.com/linux-server/add-new-hard-drive-to-centos-linux/
+	http://man7.org/linux/man-pages/man5/fstab.5.html
