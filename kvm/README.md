@@ -650,6 +650,7 @@ Check by running below command.
 
 	[ahmed@ahmed-server ~]# df -h
 	
+!['DF OUTPUT'](https://lh4.googleusercontent.com/-voRfasXoGrc/VPPk3zAp2sI/AAAAAAAAksg/NrxPnp4baGM/w521-h102-no/DF_OUTPUT.PNG 'DF OUTPUT')	
 
 
 <a name="UsefulLinks"></a>
