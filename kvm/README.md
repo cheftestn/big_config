@@ -575,10 +575,19 @@ This will create a HDD with 100GB disk.
 
 ####Method 1 - Adding `image` from `virt-manager` UI.
 
-You can use the `virsh` option. You can use the "Add Hardware" option in `virt-manager` to either add new space or assign existing space.
-Simply open the VM, go to "Details" and select "Add Hardware".
+Steps to Adding from the UI.
 
-!['Adding New HDD'](http://i.stack.imgur.com/wPC6b.png 'Adding New HDD')
+1. Select a VM, `right-click` -> `open`.
+2. Next on the screen select `view` -> `details`.
+3. In the new window select `Add Hardware` -> `Storage` -> `select managed or other existing storage`.
+	* Select `Device Type` : `virtio`
+	* Select `Storage Format` : `raw`
+
+!['Adding New HDD'](https://lh5.googleusercontent.com/-6SJ4vYpDFHs/VPPh6gpzcxI/AAAAAAAAksQ/Xjd_jHLF8NQ/w783-h656-no/VM_UI_ADD_HDD.PNG 'Adding New HDD')
+
+After Adding the HDD we can see it as below.
+
+!['After Adding HDD'](https://lh3.googleusercontent.com/-20xLiytx3iA/VPPh6slhzdI/AAAAAAAAksU/Fn_D1UcoNZs/w777-h620-no/AFTER_ADDIN_HDD.PNG 'After Adding HDD')
 
 More Info Here : http://unix.stackexchange.com/questions/92967/how-to-add-extra-disks-on-kvm-based-vm
 
@@ -600,7 +609,7 @@ To add the image to the server add the below xml tag.
 
     <disk type='file' device='disk'>
       <driver name='qemu' type='raw' cache='none'/>
-      <source file='/data/virtual_machines/images/VM-1-NEW-HDD.img'/>
+      <source file='/virtual_machines/images/VM-1-ADD.img'/>
       <target dev='vda' bus='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
     </disk>
@@ -609,6 +618,7 @@ Now reboot the VM, after restart you will see the new device.
     
 	[ahmed@ahmed-server ~]# fdisk -l
 
+!['fdisk output'](https://lh4.googleusercontent.com/-mqI31qwzMhY/VPPh6qd8eUI/AAAAAAAAksM/9NN2iQMYgUw/w468-h126-no/VDA_HDD.PNG 'Fdisk output')
 
 
 <a name="AddedimagewillappearasdevvdaintheVMformatitusingthemke2fscommand"></a>
