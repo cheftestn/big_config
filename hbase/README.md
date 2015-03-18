@@ -658,7 +658,7 @@ This command will create a table with one column family:
 
 This command will add a row to the table:
 
-	put 'table2', 'row1', 'column1', 'value'
+	put 'table2', 'row1', 'cf1', 'value'
 
 This command will display all rows in the table:
 
