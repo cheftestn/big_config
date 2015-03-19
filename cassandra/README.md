@@ -28,6 +28,13 @@
 	* <a href="#Updatingcassandrayamlfile">Updating `cassandra.yaml` file.</a>
 	* <a href="#Updatingcassandraenvshfile">Updating `cassandra-env.sh` file.</a>
 	* <a href="#Updatingcassandratopologypropertiesfile">Updating `cassandra-topology.properties` file.</a>
+* <a href="#InstallingOpsCenterMonitoringforCassandra">Installing `OpsCenter` Monitoring for Cassandra.</a>
+	* <a href="#DownloadopscenterArchive">Download `opscenter` Archive.</a>
+	* <a href="#Extractingopscenter">Extracting `opscenter`.</a>
+	* <a href="#Configureopscenter">Configure `opscenter`</a>
+	* <a href="#ConfiguringAgent">Configuring Agent.</a>
+	* <a href="#StartingopsCenter">Starting opsCenter.</a>
+	* <a href="#StartingAgentManually">Starting Agent Manually.</a>
 * <a href="#UsefulLinks">Useful Links</a>
 
 ---
@@ -59,9 +66,9 @@ All the server were with below configuration.
 Setting up the servers and update `/etc/hosts` as below.
 
 	#Adding CASSANDRA NODES
-	10.10.18.35    CASSANDRA01 		#SEED
-	10.10.18.93    CASSANDRA02 		#Worker
-	10.10.18.98    CASSANDRA03 		#Worker
+	10.130.18.35    CASSANDRA01 		#SEED
+	10.130.18.93    CASSANDRA02 		#Worker
+	10.130.18.98    CASSANDRA03 		#Worker
 
 
 <a name="Updatinghostnameonallservers"></a>
@@ -169,8 +176,8 @@ Node 2: 6148914691236517205
 	seed_provider:
 	  - class_name: org.apache.cassandra.locator.SimpleSeedProvider
 		parameters:
-			 - seeds: "10.10.18.35"
-	listen_address: 10.10.18.35
+			 - seeds: "10.130.18.35"
+	listen_address: 10.130.18.35
 	endpoint_snitch: SimpleSnitch
 
 	data_file_directories:
@@ -190,8 +197,8 @@ Node 2: 6148914691236517205
 	seed_provider:
 	  - class_name: org.apache.cassandra.locator.SimpleSeedProvider
 		parameters:
-			 - seeds: "10.10.18.35"
-	listen_address: 10.10.18.93
+			 - seeds: "10.130.18.35"
+	listen_address: 10.130.18.93
 	endpoint_snitch: SimpleSnitch
 
 	data_file_directories:
@@ -210,8 +217,8 @@ Node 2: 6148914691236517205
 	seed_provider:
 	  - class_name: org.apache.cassandra.locator.SimpleSeedProvider
 		parameters:
-			 - seeds: "10.10.18.35"
-	listen_address: 10.10.18.98
+			 - seeds: "10.130.18.35"
+	listen_address: 10.130.18.98
 	endpoint_snitch: SimpleSnitch
 
 	data_file_directories:
@@ -355,11 +362,94 @@ Cassandra
 
 NOTE : This has to match with the `cassendra-rackdc.properties` file.
     
-    10.10.18.35=DC1:RAC1
-    10.10.18.93=DC2:RAC1
-    10.10.18.98=DC2:RAC2
+    10.130.18.35=DC1:RAC1
+    10.130.18.93=DC2:RAC1
+    10.130.18.98=DC2:RAC2
 
 When using this format we need to update `cassendra-rackdc.properties` and use `endpoint_snitch:` as `GossipingPropertyFileSnitch` in the `cassandra.yaml` 
+
+
+
+<a name="InstallingOpsCenterMonitoringforCassandra"></a>
+
+## Installing `OpsCenter` Monitoring for Cassandra.
+
+Setting up a `opscenter` for our `cassandra cluster`
+
+
+<a name="DownloadopscenterArchive"></a>
+
+### Download `opscenter` Archive.
+
+	wget http://downloads.datastax.com/community/opscenter-5.0.tar.gz
+
+
+<a name="Extractingopscenter"></a>
+
+### Extracting `opscenter`.
+
+Extracting, Create and Change owner.
+
+	sudo tar xvzf opscenter-5.0.2.tar.gz -C /opt/
+	cd /opt/
+	sudo ln -s opscenter-5.0.2 opscenter
+	sudo chown cassandra:cassandra -R opscenter*
+
+
+<a name="Configureopscenter"></a>
+
+### Configure `opscenter`
+
+Update configuration file.
+
+	vim /opt/opscenter/conf/opscenterd.conf
+
+Update the interface as below.
+	
+	[webserver]
+	port = 8888
+	interface = 10.10.18.35
+
+
+<a name="ConfiguringAgent"></a>
+
+### Configuring Agent.
+
+Update the File below
+
+	vim /opt/opscenter/agent/conf/address.yaml
+
+Add Below Line.
+ 
+	stomp_interface: "10.10.18.35"
+
+
+<a name="StartingopsCenter"></a>
+
+### Starting opsCenter.
+
+	/opt/opscenter/bin/opscenter
+
+Open the browser with below URL.
+
+	http://10.10.18.35:8888/opscenter/index.html
+	
+1. In the UI Select, Manager Existing Cluster. (Manage an existing DataStax Enterprise or Cassandra cluster with OpsCenter.)
+2. Add `Server IPs` as below. (Newline is the Separator) - Our Cluster running on JMX `7199` port.
+	
+	10.10.18.35 
+	10.10.18.93 
+	10.10.18.98	
+	
+
+<a name="StartingAgentManually"></a>
+
+### Starting Agent Manually.
+
+Agent can be started from the `opscenter`. But if there is some issues then we can start it manually. (Make sure to update the `address.yaml` as above.)
+	
+	/opt/opscenter/agent/bin/datastax-agent
+	
 
 
 <a name="UsefulLinks"></a>
