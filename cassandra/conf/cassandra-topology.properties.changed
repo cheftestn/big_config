@@ -17,9 +17,9 @@
 # Cassandra Node IP=Data Center:Rack
 # NOTE : This has to match with the `cassendra-rackdc.properties` file.
 
-10.130.18.35=DC1:RAC1
-10.130.18.93=DC2:RAC1
-10.130.18.98=DC2:RAC2
+10.10.18.35=DC1:RAC1
+10.10.18.93=DC2:RAC1
+10.10.18.98=DC2:RAC2
 
 # default for unknown nodes
 default=DC1:RAC1

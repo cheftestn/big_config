@@ -262,7 +262,7 @@ seed_provider:
       parameters:
           # seeds is actually a comma-delimited list of addresses.
           # Ex: "<ip1>,<ip2>,<ip3>"
-          - seeds: "10.130.18.35"
+          - seeds: "10.10.18.35"
 
 # For workloads with more data than can fit in memory, Cassandra's
 # bottleneck will be reads that need to fetch data from
@@ -277,7 +277,7 @@ seed_provider:
 # your system; (8 * number_of_cores) is a good rule of thumb.
 #concurrent_reads: 32
 #concurrent_writes: 32
-concurrent_reads: 240
+concurrent_reads: 32
 concurrent_writes: 240
 concurrent_counter_writes: 32
 
@@ -370,7 +370,7 @@ ssl_storage_port: 7001
 # address associated with the hostname (it might not be).
 #
 # Setting listen_address to 0.0.0.0 is always wrong.
-listen_address: 10.130.18.35
+listen_address: 10.10.18.35
 # listen_interface: eth0
 
 # Address to broadcast to other Cassandra nodes
@@ -421,7 +421,7 @@ rpc_port: 9160
 # be set to 0.0.0.0. If left blank, this will be set to the value of
 # rpc_address. If rpc_address is set to 0.0.0.0, broadcast_rpc_address must
 # be set.
-#broadcast_rpc_address: 10.130.18.0
+#broadcast_rpc_address: 10.10.18.0
 
 # enable or disable keepalive on rpc/native connections
 rpc_keepalive: true

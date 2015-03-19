@@ -143,7 +143,7 @@ esac
 #MAX_HEAP_SIZE="4G"
 #HEAP_NEWSIZE="800M"
 MAX_HEAP_SIZE="15G"
-HEAP_NEWSIZE="10G"
+HEAP_NEWSIZE="4G"
 
 # Set this to control the amount of arenas per-thread in glibc
 #export MALLOC_ARENA_MAX=4
