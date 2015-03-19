@@ -435,11 +435,13 @@ Open the browser with below URL.
 	http://10.10.18.35:8888/opscenter/index.html
 	
 1. In the UI Select, Manager Existing Cluster. (Manage an existing DataStax Enterprise or Cassandra cluster with OpsCenter.)
-2. Add `Server IPs` as below. (Newline is the Separator) - Our Cluster running on JMX `7199` port.
+2. Add `Server IPs` as below.  Our Cluster running on JMX `7199` port.
 	
-	10.10.18.35 
-	10.10.18.93 
-	10.10.18.98	
+Newline is the Separator.
+	
+    10.10.18.35 
+    10.10.18.93 
+    10.10.18.98	
 	
 
 <a name="StartingAgentManually"></a>
