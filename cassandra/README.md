@@ -59,9 +59,9 @@ All the server were with below configuration.
 Setting up the servers and update `/etc/hosts` as below.
 
 	#Adding CASSANDRA NODES
-	10.130.18.35    CASSANDRA01 		#SEED
-	10.130.18.93    CASSANDRA02 		#Worker
-	10.130.18.98    CASSANDRA03 		#Worker
+	10.10.18.35    CASSANDRA01 		#SEED
+	10.10.18.93    CASSANDRA02 		#Worker
+	10.10.18.98    CASSANDRA03 		#Worker
 
 
 <a name="Updatinghostnameonallservers"></a>
@@ -169,8 +169,8 @@ Node 2: 6148914691236517205
 	seed_provider:
 	  - class_name: org.apache.cassandra.locator.SimpleSeedProvider
 		parameters:
-			 - seeds: "10.130.18.35"
-	listen_address: 10.130.18.35
+			 - seeds: "10.10.18.35"
+	listen_address: 10.10.18.35
 	endpoint_snitch: SimpleSnitch
 
 	data_file_directories:
@@ -190,8 +190,8 @@ Node 2: 6148914691236517205
 	seed_provider:
 	  - class_name: org.apache.cassandra.locator.SimpleSeedProvider
 		parameters:
-			 - seeds: "10.130.18.35"
-	listen_address: 10.130.18.93
+			 - seeds: "10.10.18.35"
+	listen_address: 10.10.18.93
 	endpoint_snitch: SimpleSnitch
 
 	data_file_directories:
@@ -210,8 +210,8 @@ Node 2: 6148914691236517205
 	seed_provider:
 	  - class_name: org.apache.cassandra.locator.SimpleSeedProvider
 		parameters:
-			 - seeds: "10.130.18.35"
-	listen_address: 10.130.18.98
+			 - seeds: "10.10.18.35"
+	listen_address: 10.10.18.98
 	endpoint_snitch: SimpleSnitch
 
 	data_file_directories:
@@ -355,9 +355,9 @@ Cassandra
 
 NOTE : This has to match with the `cassendra-rackdc.properties` file.
     
-    10.130.18.35=DC1:RAC1
-    10.130.18.93=DC2:RAC1
-    10.130.18.98=DC2:RAC2
+    10.10.18.35=DC1:RAC1
+    10.10.18.93=DC2:RAC1
+    10.10.18.98=DC2:RAC2
 
 When using this format we need to update `cassendra-rackdc.properties` and use `endpoint_snitch:` as `GossipingPropertyFileSnitch` in the `cassandra.yaml` 
 
