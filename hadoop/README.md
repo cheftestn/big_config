@@ -285,8 +285,6 @@ Here what the configuration looks like.
 
 
 
-
-
 <a name="Starting Service YARN."></a>
 
 ### Starting Service YARN.
@@ -300,6 +298,9 @@ Step 2. Next we start `nodemanager`, using `yarn-daemons.sh` (there is a `s` in 
 	/opt/hadoop/sbin/yarn-daemons.sh start nodemanager
 
 
+Step 3. Next we start `history-server`. 
+
+	/opt/hadoop/sbin/mr-jobhistory-daemon.sh start historyserver
 
 
 
