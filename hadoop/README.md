@@ -188,6 +188,16 @@ File to update : `mapred-site.xml`
 	        <name>mapreduce.framework.name</name>
 	        <value>yarn</value>
 	</property>
+	    
+	<property>
+        <name>mapreduce.jobhistory.address</name>
+        <value>AHMD-HBASE-MASTER:10020</value>
+    </property>
+
+    <property>
+        <name>mapreduce.jobhistory.webapp.address</name>
+        <value>AHMD-HBASE-MASTER:19888</value>
+    </property>
 	</configuration>
 
 File to update : `yarn-site.xml`
